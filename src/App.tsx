@@ -20,9 +20,9 @@ function App() {
     }
   });
 
-  const [waveform, setWaveform] = React.useState(synth.waveform);
+  const [waveform, setWaveform] = React.useState(synth.getWaveform());
   const handleSetWaveform = (waveform: OscillatorType) => {
-    synth.waveform = waveform;
+    synth.setWaveform(waveform);
     setWaveform(waveform);
   }
 

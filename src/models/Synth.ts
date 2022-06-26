@@ -3,10 +3,10 @@ import { getHertzForNoteAndOctave } from "../utils/pitchUtil";
 import Voice from "./Voice";
 
 export default class Synth {
-  context: AudioContext;
-  activeVoices: Array<Voice> = [];
-  currentOctave = 0;
-  waveform: OscillatorType = "sine";
+  private context: AudioContext;
+  private activeVoices: Array<Voice> = [];
+  private currentOctave = 0;
+  private waveform: OscillatorType = "sine";
 
   constructor(context: AudioContext) {
     this.context = context;
@@ -72,5 +72,13 @@ export default class Synth {
     }
 
     this.tearDownVoice(indexOfKey);
+  }
+
+  getWaveform() {
+    return this.waveform;
+  }
+
+  setWaveform(waveform: OscillatorType) {
+    this.waveform = waveform;
   }
 }
