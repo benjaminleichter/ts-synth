@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
   const context = React.useMemo(() => new AudioContext(), []);
-  const synth = React.useMemo(() => new Synth(context), []);
+  const synth = React.useMemo(() => new Synth(context), [context]);
 
   React.useEffect(() => {
     const playNote = synth.play.bind(synth);
