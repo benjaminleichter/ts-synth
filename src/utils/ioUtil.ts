@@ -1,0 +1,1 @@
+export const connectNodes = (source: AudioNode, desination: AudioNode) => source.connect(desination)
