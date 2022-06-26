@@ -5,30 +5,18 @@ type IVoice = {
   waveform: OscillatorType;
   frequency: number;
   keyboardKey: string;
-  ramp?: AudioParam;
-  destinationValue?: number;
 }
 export default class Voice {
   private context: AudioContext;
   private oscillator: OscillatorNode;
   private gain: GainNode;
   private keyboardKey: string;
-  private ramp: null | AudioParam = null;
-  private destinationValue: null | number = null;
 
-  constructor({ context, waveform, frequency, keyboardKey, ramp, destinationValue }: IVoice) {
+  constructor({ context, waveform, frequency, keyboardKey }: IVoice) {
     this.context = context;
     this.oscillator = this.initOscillator(waveform, frequency);
     this.gain = this.context.createGain();
     this.keyboardKey = keyboardKey;
-
-    if (ramp) {
-      this.ramp = ramp;
-    }
-
-    if (destinationValue) {
-      this.destinationValue = destinationValue;
-    }
 
     connectNodes(this.oscillator, this.gain);
     connectNodes(this.gain, this.context.destination);
@@ -65,15 +53,8 @@ export default class Voice {
 
     const ramp = this.initRamp(initialValue, endValue, durationSeconds);
 
-    this.destinationValue = endValue;
-    this.ramp = ramp;
-
     this.oscillator.start(now);
     this.oscillator.stop(now + durationSeconds);
-  }
-
-  setDestinationValue(destinationValue: number) {
-    this.destinationValue = destinationValue;
   }
 
   getKeyboardKey() {
