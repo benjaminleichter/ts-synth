@@ -12,16 +12,6 @@ export default class Synth {
     this.context = context;
   }
 
-  createRamp(gain: GainNode, initialValue: number, endValue: number, start: number, durationSeconds: number) {
-    const gainNode = gain.gain;
-
-    gainNode.setValueAtTime(initialValue, start);
-
-    const ramp = gainNode.exponentialRampToValueAtTime(endValue, start + durationSeconds);
-
-    return ramp;
-  }
-
   initVoice(oscillatorType: OscillatorType, oscillatorFrequency: number, keyboardKey: string): Voice {
     const voice = new Voice({ context: this.context, waveform: oscillatorType, frequency: oscillatorFrequency, keyboardKey })
     this.activeVoices.push(voice);

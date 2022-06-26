@@ -36,23 +36,10 @@ export default class Voice {
     return oscillator;
   }
 
-  initRamp(initialValue: number, endValue: number, durationSeconds: number) {
-    const now = this.context.currentTime;
-
-    const gainNode = this.gain.gain;
-
-    gainNode.setValueAtTime(initialValue, now);
-
-    const ramp = gainNode.exponentialRampToValueAtTime(endValue, now + durationSeconds);
-
-    return ramp;
-  }
-
   play(initialValue: number = 0.5, endValue: number = 0.01, durationSeconds: number = 0.5) {
     const now = this.context.currentTime;
 
-    const ramp = this.initRamp(initialValue, endValue, durationSeconds);
-
+    this.gain.gain.setValueAtTime(initialValue, now).exponentialRampToValueAtTime(endValue, now + durationSeconds)
     this.oscillator.start(now);
     this.oscillator.stop(now + durationSeconds);
   }
